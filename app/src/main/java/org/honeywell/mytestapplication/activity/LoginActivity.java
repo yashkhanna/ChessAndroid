@@ -1,4 +1,4 @@
-package org.honeywell.mytestapplication;
+package org.honeywell.mytestapplication.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import chess.activity.ChessActivity;
+import org.honeywell.mytestapplication.R;
 
 /**
  * Created by yash on 13/04/17.

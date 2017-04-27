@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
+        <activity android:name=".activity.MainActivity"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,13 +18,13 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".LoginActivity"
+        <activity android:name=".activity.LoginActivity"
             android:noHistory="true"/>
 
-        <activity android:name=".BaseActivity"
+        <activity android:name=".activity.BaseActivity"
             android:noHistory="true"/>
 
-        <activity android:name="chess.activity.ChessActivity"/>
+        <activity android:name=".activity.ChessActivity"/>
     </application>
 
 </manifest>

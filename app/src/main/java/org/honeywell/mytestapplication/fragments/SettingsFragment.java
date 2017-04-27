@@ -12,9 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.honeywell.mytestapplication.LoginActivity;
-import org.honeywell.mytestapplication.MainActivity;
 import org.honeywell.mytestapplication.R;
+import org.honeywell.mytestapplication.activity.MainActivity;
 
 /**
  * Created by yash on 14/04/17.

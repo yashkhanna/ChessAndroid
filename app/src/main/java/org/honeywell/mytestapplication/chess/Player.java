@@ -1,4 +1,4 @@
-package chess.model;
+package org.honeywell.mytestapplication.chess;
 
 /**
  * Created by yash.khanna on 4/26/2017.

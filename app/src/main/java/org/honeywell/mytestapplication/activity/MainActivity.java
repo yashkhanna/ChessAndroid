@@ -1,12 +1,10 @@
-package org.honeywell.mytestapplication;
+package org.honeywell.mytestapplication.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
-import chess.activity.ChessActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,4 +21,5 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
+
 }

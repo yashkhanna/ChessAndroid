@@ -1,4 +1,4 @@
-package chess.activity;
+package org.honeywell.mytestapplication.activity;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -18,15 +18,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import chess.model.Block;
-import chess.model.Pair;
-import chess.model.Piece;
-import chess.model.Player;
+import org.honeywell.mytestapplication.chess.Block;
+import org.honeywell.mytestapplication.chess.Pair;
+import org.honeywell.mytestapplication.chess.Piece;
+import org.honeywell.mytestapplication.chess.Player;
 
 /**
  * Created by yash on 14/04/17.
  */
-
 public class ChessActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final int SIZE = 8;
@@ -49,12 +48,11 @@ public class ChessActivity extends AppCompatActivity implements View.OnClickList
         countDownTimer = new CountDownTimer(31000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                turnTextView.setText("Turn: " + turn.name() + "Seconds remaining: " + millisUntilFinished / 1000);
+                turnTextView.setText("Turn: " + turn.name() + " Seconds remaining: " + millisUntilFinished / 1000);
             }
 
             @Override
             public void onFinish() {
-                turnTextView.setText("Done !");
                 switchTurn();
                 start();
             }

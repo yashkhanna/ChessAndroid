@@ -1,4 +1,4 @@
-package org.honeywell.mytestapplication;
+package org.honeywell.mytestapplication.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import org.honeywell.mytestapplication.R;
 import org.honeywell.mytestapplication.fragments.HomeFragment;
 import org.honeywell.mytestapplication.fragments.SettingsFragment;
 
