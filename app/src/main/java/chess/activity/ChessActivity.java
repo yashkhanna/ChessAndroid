@@ -135,84 +135,265 @@ public class ChessActivity extends AppCompatActivity implements View.OnClickList
 
     void refreshBlockBG(int row, int col) {
         @ColorRes int colorRes = ((row + col) % 2 == 0) ? R.color.black : R.color.white;
+        refreshBlockBG(row, col, colorRes);
+    }
+
+    void refreshBlockBG(int row, int col, @ColorRes int colorRes) {
         textViews[row][col].setBackgroundColor(ContextCompat.getColor(ChessActivity.this, colorRes));
     }
 
     void refreshBlockAlpha(int row, int col) {
-        textViews[row][col].setAlpha(1f);
+        refreshBlockAlpha(row, col, 1f);
     }
 
-    public boolean turn = true;
-    public boolean firstMove = true;
-    public Pair start;
-    public List<Pair> end = new ArrayList<>();
+    void refreshBlockAlpha(int row, int col, float alpha) {
+        textViews[row][col].setAlpha(alpha);
+    }
+
+    public Player turn = Player.WHITE;
+    public boolean startSelected = false;
+
+    public Pair transitionStart;
+    public List<Pair> transitionSpace = new ArrayList<>();
+    public Pair transitionEnd;
+
+    void initTransition() {
+        if (transitionStart != null)
+            refreshBlock(transitionStart.x, transitionStart.y);
+
+        if (transitionEnd != null)
+            refreshBlock(transitionEnd.x, transitionEnd.y);
+
+        if (!transitionSpace.isEmpty())
+            unmarkTransitionBlocks();
+
+        transitionStart = null;
+        transitionEnd = null;
+        transitionSpace.clear();
+    }
+
+    void markStartBlock() {
+        refreshBlockBG(transitionStart.x, transitionStart.y, R.color.selected);
+    }
+
+    void unmarkStartBlock() {
+        chess[transitionStart.x][transitionStart.y].player = Player.NULL;
+        chess[transitionStart.x][transitionStart.y].piece = Piece.EMPTY;
+        refreshBlock(transitionStart.x, transitionStart.y);
+    }
+
+    void markEndBlock() {
+        chess[transitionEnd.x][transitionEnd.y].player = chess[transitionStart.x][transitionStart.y].player;
+        chess[transitionEnd.x][transitionEnd.y].piece = chess[transitionStart.x][transitionStart.y].piece;
+        refreshBlock(transitionEnd.x, transitionEnd.y);
+    }
+
+    void markTransitionBlocks() {
+        for (Pair pair : transitionSpace) {
+            if (chess[pair.x][pair.y].player == inverseTurn()) {
+                refreshBlockBG(pair.x, pair.y, R.color.enemy);
+            } else {
+                refreshBlockAlpha(pair.x, pair.y, 0.05f);
+            }
+        }
+    }
+
+    void unmarkTransitionBlocks() {
+        for (Pair pair : transitionSpace) {
+            refreshBlock(pair.x, pair.y);
+        }
+    }
 
     @Override
     public void onClick(View v) {
         Pair pair = viewToPair.get(v);
         if (pair == null)
             return;
-//
-//        Block block = chess[pair.x][pair.y];
-//        TextView textView = textViews[pair.x][pair.y];
-//
-//        if (firstMove) {
-//            if (block.player == (turn ? Player.WHITE : Player.BLACK)) {
-//                start = pair;
-//                populateEndList();
-//                textView.setBackgroundColor(ContextCompat.getColor(ChessActivity.this, R.color.selected));
-//                for (Pair endMoves : end) {
-//                    textViews[endMoves.x][endMoves.y].setAlpha(0.35f);
-//                }
-//                firstMove = false;
-//            }
-//        } else {
-//            if (end.contains(pair)) {
-//                chess[pair.x][pair.y] = new Block(chess[start.x][start.y]);
-//                setTextView(pair.x, pair.y);
-//
-//                chess[start.x][start.y] = new Block();
-//                setTextView(start.x, start.y);
-//
-//                for (Pair endMoves : end) {
-//                    resetColor(endMoves);
-//                }
-//
-//                resetColor(start);
-//
-//                firstMove = true;
-//                start = null;
-//                end.clear();
-//                turn = !turn;
-//            }
-//        }
-//
-        Toast.makeText(ChessActivity.this, "X: " + pair.x + " Y: " + pair.y, Toast.LENGTH_SHORT).show();
+
+        Block block = chess[pair.x][pair.y];
+
+        if (!startSelected) {
+            initTransition();
+            if (block.player == turn) {
+                transitionStart = pair;
+                populateEndList();
+
+                markStartBlock();
+                markTransitionBlocks();
+
+                if (!transitionSpace.isEmpty()) {
+                    startSelected = true;
+                }
+            } else {
+                Toast.makeText(ChessActivity.this, "Selection not allowed", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            if (transitionSpace.contains(pair)) {
+                transitionEnd = pair;
+                markEndBlock();
+                unmarkStartBlock();
+                unmarkTransitionBlocks();
+                switchTurn();
+            }
+            startSelected = false;
+        }
+
+//        Toast.makeText(ChessActivity.this, "X: " + pair.x + " Y: " + pair.y, Toast.LENGTH_SHORT).show();
     }
 
     void populateEndList() {
-        end.clear();
+        switch (chess[transitionStart.x][transitionStart.y].piece) {
+            case PAWN:
+                populatePawnList();
+                break;
+            case KING:
+                populateKingList();
+                break;
+            case KNIGHT:
+                populateKnightList();
+                break;
+            case BISHOP:
+                populateBishopList();
+                break;
+            case ROOK:
+                populateRookList();
+                break;
+            case QUEEN:
+                populateQueenList();
+                break;
+            default:
+                break;
+        }
+    }
+
+    boolean addElementToSpace(int x, int y) {
+        if (checkBounds(x, y)) {
+            if (chess[x][y].player == turn) {
+                return false;
+            } else if (chess[x][y].player == inverseTurn()) {
+                transitionSpace.add(new Pair(x, y));
+                return false;
+            } else {
+                transitionSpace.add(new Pair(x, y));
+                return true;
+            }
+        }
+        return false;
+    }
+
+    void populateKnightList() {
+        int x = transitionStart.x;
+        int y = transitionStart.y;
+        addElementToSpace(x + 2, y + 1);
+        addElementToSpace(x + 2, y - 1);
+        addElementToSpace(x + 1, y + 2);
+        addElementToSpace(x + 1, y - 2);
+        addElementToSpace(x - 2, y + 1);
+        addElementToSpace(x - 2, y - 1);
+        addElementToSpace(x - 1, y + 2);
+        addElementToSpace(x - 1, y - 2);
+    }
+
+    void populateBishopList() {
+        int ctr;
+        int x = transitionStart.x;
+        int y = transitionStart.y;
+
+        ctr = 1;
+        while (addElementToSpace(x + ctr, y + ctr)) {
+            ctr++;
+        }
+        ctr = 1;
+        while (addElementToSpace(x + ctr, y - ctr)) {
+            ctr++;
+        }
+        ctr = 1;
+        while (addElementToSpace(x - ctr, y + ctr)) {
+            ctr++;
+        }
+        ctr = 1;
+        while (addElementToSpace(x - ctr, y - ctr)) {
+            ctr++;
+        }
+    }
+
+    void populateRookList() {
+        int ctr;
+        int x = transitionStart.x;
+        int y = transitionStart.y;
+
+        ctr = 1;
+        while (addElementToSpace(x, y + ctr)) {
+            ctr++;
+        }
+        ctr = 1;
+        while (addElementToSpace(x, y - ctr)) {
+            ctr++;
+        }
+        ctr = 1;
+        while (addElementToSpace(x + ctr, y)) {
+            ctr++;
+        }
+        ctr = 1;
+        while (addElementToSpace(x - ctr, y)) {
+            ctr++;
+        }
+    }
+
+    void populateQueenList() {
+        populateRookList();
+        populateBishopList();
+    }
+
+    void populateKingList() {
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-                Pair pair = new Pair(start.x + i, start.y + j);
-                if (checkBounds(pair) && chess[pair.x][pair.y].player != (turn ? Player.WHITE : Player.BLACK)) {
-                    end.add(pair);
-                }
+                int x = transitionStart.x + i;
+                int y = transitionStart.y + j;
+                addElementToSpace(x, y);
             }
         }
     }
 
-    boolean checkBounds(Pair pair) {
-        return (pair.x >= 0 && pair.x < SIZE && pair.y >= 0 && pair.y < SIZE);
-    }
-
-    void resetColor(Pair pair) {
-        if ((pair.x + pair.y) % 2 == 0) {
-            textViews[pair.x][pair.y].setBackgroundColor(ContextCompat.getColor(ChessActivity.this, R.color.black));
+    void populatePawnList() {
+        int x = transitionStart.x;
+        int y = transitionStart.y;
+        if (turn == Player.WHITE) {
+            if (checkBounds(x - 1, y) && chess[x - 1][y].player == Player.NULL) {
+                if (addElementToSpace(x - 1, y) && x == 6) {
+                    addElementToSpace(x - 2, y);
+                }
+            }
+            if (checkBounds(x - 1, y - 1) && chess[x - 1][y - 1].player == inverseTurn()) {
+                addElementToSpace(x - 1, y - 1);
+            }
+            if (checkBounds(x - 1, y + 1) && chess[x - 1][y + 1].player == inverseTurn()) {
+                addElementToSpace(x - 1, y + 1);
+            }
         } else {
-            textViews[pair.x][pair.y].setBackgroundColor(ContextCompat.getColor(ChessActivity.this, R.color.white));
+            if (checkBounds(x + 1, y) && chess[x + 1][y].player == Player.NULL) {
+                if (addElementToSpace(x + 1, y) && x == 1) {
+                    addElementToSpace(x + 2, y);
+                }
+            }
+            if (checkBounds(x + 1, y - 1) && chess[x + 1][y - 1].player == inverseTurn()) {
+                addElementToSpace(x + 1, y - 1);
+            }
+            if (checkBounds(x + 1, y + 1) && chess[x + 1][y + 1].player == inverseTurn()) {
+                addElementToSpace(x + 1, y + 1);
+            }
         }
-        textViews[pair.x][pair.y].setAlpha(1f);
     }
 
+    boolean checkBounds(int row, int col) {
+        return (row >= 0 && row < SIZE && col >= 0 && col < SIZE);
+    }
+
+    void switchTurn() {
+        turn = (turn == Player.WHITE) ? Player.BLACK : Player.WHITE;
+    }
+
+    Player inverseTurn() {
+        return (turn == Player.WHITE) ? Player.BLACK : Player.WHITE;
+    }
 }
