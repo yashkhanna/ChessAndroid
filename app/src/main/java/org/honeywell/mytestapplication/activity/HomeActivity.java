@@ -1,10 +1,9 @@
-package org.honeywell.mytestapplication.fragments;
+package org.honeywell.mytestapplication.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 
