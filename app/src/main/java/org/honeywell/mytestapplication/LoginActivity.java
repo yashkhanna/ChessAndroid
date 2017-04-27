@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     String str1;
     String str2;
 
-    String EMAIL = "yash.khanna@gmail.com";
+    String EMAIL = "email";
     String PASS = "password";
 
     @Override

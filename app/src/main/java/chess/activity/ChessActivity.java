@@ -1,6 +1,7 @@
 package chess.activity;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.ColorRes;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -33,12 +34,47 @@ public class ChessActivity extends AppCompatActivity implements View.OnClickList
     Block[][] chess = new Block[SIZE][SIZE];
     TextView[][] textViews = new TextView[SIZE][SIZE];
     Map<View, Pair> viewToPair = new HashMap<>();
+    TextView turnTextView;
+    CountDownTimer countDownTimer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chess);
         init();
+        initTimer();
+    }
+
+    void initTimer() {
+        countDownTimer = new CountDownTimer(31000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                turnTextView.setText("Turn: " + turn.name() + "Seconds remaining: " + millisUntilFinished / 1000);
+            }
+
+            @Override
+            public void onFinish() {
+                turnTextView.setText("Done !");
+                switchTurn();
+                start();
+            }
+        };
+    }
+
+    @Override
+    protected void onPause() {
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        if (countDownTimer != null) {
+            countDownTimer.start();
+        }
+        super.onResume();
     }
 
     void init() {
@@ -46,9 +82,14 @@ public class ChessActivity extends AppCompatActivity implements View.OnClickList
             for (int j = 0; j < SIZE; j++)
                 chess[i][j] = new Block();
 
-        initChessBoard();
         initUI();
+        initChessBoard();
+        initChessUI();
         refreshUI();
+    }
+
+    void initUI() {
+        turnTextView = (TextView) findViewById(R.id.turnTextView);
     }
 
     void initChessBoard() {
@@ -94,7 +135,7 @@ public class ChessActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    void initUI() {
+    void initChessUI() {
         int linearLayoutsId[] = {R.id.ll1, R.id.ll2, R.id.ll3, R.id.ll4, R.id.ll5, R.id.ll6, R.id.ll7, R.id.ll8};
 
         for (int i = 0; i < SIZE; i++) {
@@ -233,6 +274,7 @@ public class ChessActivity extends AppCompatActivity implements View.OnClickList
                 markEndBlock();
                 unmarkStartBlock();
                 unmarkTransitionBlocks();
+                countDownTimer.start();
                 switchTurn();
             }
             startSelected = false;
