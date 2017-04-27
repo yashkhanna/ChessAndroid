@@ -2,17 +2,11 @@ package org.honeywell.mytestapplication;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SyncStatusObserver;
 import android.preference.PreferenceManager;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import chess.activity.ChessActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,9 +19,8 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
         } else {
-            Intent intent = new Intent(MainActivity.this, BaseActivity.class);
+            Intent intent = new Intent(MainActivity.this, ChessActivity.class);
             startActivity(intent);
         }
     }
-
 }

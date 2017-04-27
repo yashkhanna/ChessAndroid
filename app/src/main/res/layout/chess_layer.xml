@@ -4,73 +4,20 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_weight="1"
-        android:background="#000000"
-        android:gravity="center"
-        
-        android:textColor="#FFFFFF" />
+    <include layout="@layout/chess_block" />
 
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_weight="1"
+    <include layout="@layout/chess_block" />
 
-        android:gravity="center"
-          />
+    <include layout="@layout/chess_block" />
 
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_weight="1"
+    <include layout="@layout/chess_block" />
 
-        android:background="#000000"
-        android:gravity="center"
-         
-        android:textColor="#FFFFFF" />
+    <include layout="@layout/chess_block" />
 
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_weight="1"
-        android:gravity="center"
-          />
+    <include layout="@layout/chess_block" />
 
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_weight="1"
-        android:background="#000000"
-        android:gravity="center"
-         
-        android:textColor="#FFFFFF" />
+    <include layout="@layout/chess_block" />
 
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_weight="1"
-
-        android:gravity="center"
-          />
-
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_weight="1"
-        android:background="#000000"
-        android:gravity="center"
-         
-        android:textColor="#FFFFFF" />
-
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-
-        android:layout_weight="1"
-        android:gravity="center"
-          />
-
+    <include layout="@layout/chess_block" />
 
 </LinearLayout>

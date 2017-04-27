@@ -11,7 +11,7 @@
 
     <include
         android:id="@+id/ll2"
-        layout="@layout/chess_layer2" />
+        layout="@layout/chess_layer" />
 
     <include
         android:id="@+id/ll3"
@@ -19,7 +19,7 @@
 
     <include
         android:id="@+id/ll4"
-        layout="@layout/chess_layer2" />
+        layout="@layout/chess_layer" />
 
     <include
         android:id="@+id/ll5"
@@ -27,7 +27,7 @@
 
     <include
         android:id="@+id/ll6"
-        layout="@layout/chess_layer2" />
+        layout="@layout/chess_layer" />
 
     <include
         android:id="@+id/ll7"
@@ -35,7 +35,7 @@
 
     <include
         android:id="@+id/ll8"
-        layout="@layout/chess_layer2" />
+        layout="@layout/chess_layer" />
 
     <View
         android:layout_width="match_parent"

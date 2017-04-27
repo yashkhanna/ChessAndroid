@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import chess.activity.ChessActivity;
+
 /**
  * Created by yash on 13/04/17.
  */
@@ -45,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
                         editor.putBoolean("LOGIN", true);
                         editor.apply();
 
-                        Intent intent = new Intent(LoginActivity.this, BaseActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, ChessActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                     } else {

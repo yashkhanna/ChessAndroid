@@ -181,7 +181,6 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
             default:
                 return new HomeFragment();
         }
-
     }
 
 }
