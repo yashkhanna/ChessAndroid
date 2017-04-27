@@ -6,18 +6,58 @@
 
     <include layout="@layout/chess_block" />
 
-    <include layout="@layout/chess_block" />
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="#000000" />
 
     <include layout="@layout/chess_block" />
 
-    <include layout="@layout/chess_block" />
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="#000000" />
 
     <include layout="@layout/chess_block" />
 
-    <include layout="@layout/chess_block" />
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="#000000" />
 
     <include layout="@layout/chess_block" />
 
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="#000000" />
+
     <include layout="@layout/chess_block" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="#000000" />
+
+    <include layout="@layout/chess_block" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="#000000" />
+
+    <include layout="@layout/chess_block" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="#000000" />
+
+    <include layout="@layout/chess_block" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="#000000" />
 
 </LinearLayout>

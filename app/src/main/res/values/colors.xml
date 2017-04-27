@@ -3,10 +3,13 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="black">#9AAF32</color>
-    <color name="white">#FFFACD</color>
+
     <color name="black_piece">#000000</color>
     <color name="white_piece">#0000FF</color>
-    <color name="selected">#BBBBBB</color>
+
+    <color name="black">#9AAF32</color>
+    <color name="white">#FFFACD</color>
+    <color name="selected">#11F63F</color>
+    <color name="path">#5500DDDD</color>
     <color name="enemy">#55FF0000</color>
 </resources>

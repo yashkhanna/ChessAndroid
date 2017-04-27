@@ -9,29 +9,64 @@
         android:id="@+id/ll1"
         layout="@layout/chess_layer" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000000"/>
+
     <include
         android:id="@+id/ll2"
         layout="@layout/chess_layer" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000000"/>
 
     <include
         android:id="@+id/ll3"
         layout="@layout/chess_layer" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000000"/>
+
     <include
         android:id="@+id/ll4"
         layout="@layout/chess_layer" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000000"/>
 
     <include
         android:id="@+id/ll5"
         layout="@layout/chess_layer" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000000"/>
+
     <include
         android:id="@+id/ll6"
         layout="@layout/chess_layer" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000000"/>
+
     <include
         android:id="@+id/ll7"
         layout="@layout/chess_layer" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000000"/>
 
     <include
         android:id="@+id/ll8"
@@ -39,7 +74,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="1dp"
         android:background="#000000"
         android:layout_marginBottom="20dp"/>
 

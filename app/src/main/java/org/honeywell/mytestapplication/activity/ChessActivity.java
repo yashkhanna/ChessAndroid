@@ -28,7 +28,7 @@ import org.honeywell.mytestapplication.chess.Player;
  */
 public class ChessActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static final int SIZE = 8;
+    private final int SIZE = 8;
 
     Block[][] chess = new Block[SIZE][SIZE];
     TextView[][] textViews = new TextView[SIZE][SIZE];
@@ -139,7 +139,7 @@ public class ChessActivity extends AppCompatActivity implements View.OnClickList
         for (int i = 0; i < SIZE; i++) {
             LinearLayout linearLayout = (LinearLayout) findViewById(linearLayoutsId[i]);
             for (int j = 0; j < SIZE; j++) {
-                textViews[i][j] = (TextView) linearLayout.getChildAt(j);
+                textViews[i][j] = (TextView) linearLayout.getChildAt(j*2);
                 textViews[i][j].setOnClickListener(this);
                 viewToPair.put(textViews[i][j], new Pair(i, j));
             }
@@ -232,7 +232,7 @@ public class ChessActivity extends AppCompatActivity implements View.OnClickList
             if (chess[pair.x][pair.y].player == inverseTurn()) {
                 refreshBlockBG(pair.x, pair.y, R.color.enemy);
             } else {
-                refreshBlockAlpha(pair.x, pair.y, 0.05f);
+                refreshBlockBG(pair.x, pair.y, R.color.path);
             }
         }
     }
