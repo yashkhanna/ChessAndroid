@@ -25,10 +25,6 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".activity.ChessActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
             android:name=".activity.RegisterActivity"
             android:screenOrientation="portrait" />
 

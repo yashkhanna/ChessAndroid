@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_first"
+            android:id="@+id/nav_one"
             android:checked="true"
-            android:title="@string/nav_classic" />
+            android:title="@string/nav_one" />
 
         <item
-            android:id="@+id/nav_second"
-            android:title="@string/nav_timeout" />
+            android:id="@+id/nav_two"
+            android:title="@string/nav_two" />
 
         <item
-            android:id="@+id/nav_settings"
-            android:title="@string/nav_settings" />
+            android:id="@+id/nav_three"
+            android:title="@string/nav_three" />
 
     </group>
 </menu>

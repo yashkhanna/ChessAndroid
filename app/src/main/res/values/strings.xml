@@ -3,7 +3,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="nav_classic">Classic</string>
-    <string name="nav_timeout">Timeout</string>
-    <string name="nav_settings">Settings</string>
+    <string name="nav_one">Classic</string>
+    <string name="nav_two">Timed</string>
+    <string name="nav_three">Settings</string>
 </resources>

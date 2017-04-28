@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 
 import org.honeywell.mytestapplication.R;
+import org.honeywell.mytestapplication.fragments.ChessFragment;
 import org.honeywell.mytestapplication.fragments.HomeFragment;
 import org.honeywell.mytestapplication.fragments.SettingsFragment;
 
@@ -50,8 +51,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     String email;
 
     String CURRENT_FRAGMENT;
-    String HOME_FRAGMENT = "HOME_FRAGMENT";
-    String SETTINGS_FRAGMENT = "SETTINGS_FRAGMENT";
+    String FRAGMENT_ONE = "FRAGMENT_ONE";
+    String FRAGMENT_TWO = "FRAGMENT_TWO";
+    String FRAGMENT_THREE = "FRAGMENT_THREE";
+    String FRAGMENT_FOUR = "FRAGMENT_FOUR";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -98,7 +101,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     void loadHomeFragment() {
         replaceFragment(getFragment(0));
-        setTitle(R.string.nav_classic);
+        setTitle(R.string.nav_one);
     }
 
     @Override
@@ -140,15 +143,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment fragment = null;
         switch (item.getItemId()) {
-            case R.id.nav_first:
+            case R.id.nav_one:
                 fragment = getFragment(0);
                 break;
 
-            case R.id.nav_second:
+            case R.id.nav_two:
                 fragment = getFragment(1);
                 break;
 
-            case R.id.nav_settings:
+            case R.id.nav_three:
                 fragment = getFragment(2);
                 break;
         }
@@ -165,35 +168,35 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     Fragment getFragment(int index) {
         Fragment fragment;
+        Bundle bundle = new Bundle();
+        bundle.putString("EMAIL", email);
         switch (index) {
             case 0:
-                fragment = new HomeFragment();
-                CURRENT_FRAGMENT = HOME_FRAGMENT;
+                fragment = ChessFragment.getChessFragment(null);
+                CURRENT_FRAGMENT = FRAGMENT_ONE;
                 break;
 
             case 1:
-                fragment = new HomeFragment();
-                CURRENT_FRAGMENT = HOME_FRAGMENT;
+                bundle.putBoolean("SHOW_TIMER", true);
+                fragment = ChessFragment.getChessFragment(bundle);
+                CURRENT_FRAGMENT = FRAGMENT_TWO;
                 break;
 
             case 2:
                 fragment = new SettingsFragment();
-                CURRENT_FRAGMENT = SETTINGS_FRAGMENT;
+                CURRENT_FRAGMENT = FRAGMENT_THREE;
                 break;
 
             default:
                 fragment = new HomeFragment();
-                CURRENT_FRAGMENT = HOME_FRAGMENT;
+                CURRENT_FRAGMENT = FRAGMENT_ONE;
                 break;
         }
+        fragment.setArguments(bundle);
         return fragment;
     }
 
     void replaceFragment(Fragment fragment) {
-        Bundle bundle = new Bundle();
-        bundle.putString("EMAIL", email);
-        fragment.setArguments(bundle);
-
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_frame, fragment, CURRENT_FRAGMENT).commit();
     }
