@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -17,9 +15,6 @@ import android.widget.Toast;
 import org.honeywell.mytestapplication.R;
 import org.honeywell.mytestapplication.db.UserContract;
 import org.honeywell.mytestapplication.db.UserDBHelper;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,29 +38,18 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.btnRegister)
     Button btnRegister;
 
-    String str1;
-    String str2;
-
-    boolean byPass = true;
+    @BindView(R.id.btnGuest)
+    Button btnGuest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(LoginActivity.this);
-
-        email.setText(str1);
-        pass.setText(str2);
     }
 
     @OnClick(R.id.btnLogin)
     public void onLoginClick() {
-        if (byPass) {
-            saveSharedPreferences();
-            startChessActivity();
-            return;
-        }
-
         if (TextUtils.isEmpty(email.getText().toString())) {
             Toast.makeText(LoginActivity.this, "Email cannot be empty", Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(pass.getText().toString())) {
@@ -84,12 +68,14 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean("LOGIN", true);
+        editor.putString("EMAIL", email.getText().toString());
         editor.apply();
     }
 
     void startChessActivity() {
-        Intent intent = new Intent(LoginActivity.this, ChessActivity.class);
+        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.putExtra("EMAIL", email.getText().toString());
         startActivity(intent);
     }
 
@@ -121,5 +107,10 @@ public class LoginActivity extends AppCompatActivity {
     public void onRegisterClick() {
         Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(intent);
+    }
+
+    @OnClick(R.id.btnGuest)
+    public void onGuestClick() {
+        startChessActivity();
     }
 }

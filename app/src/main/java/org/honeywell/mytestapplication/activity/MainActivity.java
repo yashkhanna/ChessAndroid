@@ -13,11 +13,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         boolean isLoggedIn = sharedPreferences.getBoolean("LOGIN", false);
+        String email = sharedPreferences.getString("EMAIL", null);
         if (!isLoggedIn) {
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
         } else {
-            Intent intent = new Intent(MainActivity.this, ChessActivity.class);
+            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+            intent.putExtra("EMAIL", email);
             startActivity(intent);
         }
     }

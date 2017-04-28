@@ -1,14 +1,12 @@
 package org.honeywell.mytestapplication.activity;
 
 import android.content.ContentValues;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,9 +15,6 @@ import android.widget.Toast;
 import org.honeywell.mytestapplication.R;
 import org.honeywell.mytestapplication.db.UserContract;
 import org.honeywell.mytestapplication.db.UserDBHelper;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
