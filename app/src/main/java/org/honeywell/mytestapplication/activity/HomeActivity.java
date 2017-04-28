@@ -47,9 +47,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-
     String email;
-    ActionBarDrawerToggle drawerToggle;
+
+    String CURRENT_FRAGMENT;
+    String HOME_FRAGMENT = "HOME_FRAGMENT";
+    String SETTINGS_FRAGMENT = "SETTINGS_FRAGMENT";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,6 +59,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_home);
         ButterKnife.bind(HomeActivity.this);
         init();
+        loadHomeFragment();
     }
 
     void init() {
@@ -78,7 +81,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     void initDrawerToggle() {
-        drawerToggle = new ActionBarDrawerToggle(HomeActivity.this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(HomeActivity.this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerToggle.syncState();
     }
 
@@ -91,6 +94,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             email = "Guest";
         }
         textView.setText(email);
+    }
+
+    void loadHomeFragment() {
+        replaceFragment(getFragment(0));
+        setTitle(R.string.nav_classic);
     }
 
     @Override
@@ -133,28 +141,60 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         Fragment fragment = null;
         switch (item.getItemId()) {
             case R.id.nav_first:
-                fragment = new SettingsFragment();
+                fragment = getFragment(0);
                 break;
 
             case R.id.nav_second:
-                fragment = new HomeFragment();
+                fragment = getFragment(1);
                 break;
 
-            case R.id.nav_third:
-                fragment = new SettingsFragment();
+            case R.id.nav_settings:
+                fragment = getFragment(2);
                 break;
         }
-        // Insert the fragment by replacing any existing fragment
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
 
-        // Highlight the selected item has been done by NavigationView
-        item.setChecked(true);
-        // Set action bar title
-        setTitle(item.getTitle());
-        // Close the navigation drawer
+        if (getSupportFragmentManager().findFragmentByTag(CURRENT_FRAGMENT) == null) {
+            replaceFragment(fragment);
+            item.setChecked(true);
+            setTitle(item.getTitle());
+        }
+
         drawerLayout.closeDrawers();
-
         return true;
+    }
+
+    Fragment getFragment(int index) {
+        Fragment fragment;
+        switch (index) {
+            case 0:
+                fragment = new HomeFragment();
+                CURRENT_FRAGMENT = HOME_FRAGMENT;
+                break;
+
+            case 1:
+                fragment = new HomeFragment();
+                CURRENT_FRAGMENT = HOME_FRAGMENT;
+                break;
+
+            case 2:
+                fragment = new SettingsFragment();
+                CURRENT_FRAGMENT = SETTINGS_FRAGMENT;
+                break;
+
+            default:
+                fragment = new HomeFragment();
+                CURRENT_FRAGMENT = HOME_FRAGMENT;
+                break;
+        }
+        return fragment;
+    }
+
+    void replaceFragment(Fragment fragment) {
+        Bundle bundle = new Bundle();
+        bundle.putString("EMAIL", email);
+        fragment.setArguments(bundle);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment, CURRENT_FRAGMENT).commit();
     }
 }

@@ -4,15 +4,15 @@
         <item
             android:id="@+id/nav_first"
             android:checked="true"
-            android:title="First" />
+            android:title="@string/nav_classic" />
 
         <item
             android:id="@+id/nav_second"
-            android:title="Second" />
+            android:title="@string/nav_timeout" />
 
         <item
-            android:id="@+id/nav_third"
-            android:title="Third" />
+            android:id="@+id/nav_settings"
+            android:title="@string/nav_settings" />
 
     </group>
 </menu>
